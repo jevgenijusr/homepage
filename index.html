@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jevgenijus</title>
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400);
+        body {
+            background-image: url("shambala.png");
+        }
+        a {
+            color: #ff0;
+        }
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+        }
+        .cover .hi {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-family: 'Roboto Slab', serif;
+            font-size: 24px;
+            line-height: 26px;
+            text-align: center;
+        }
+        .cover .hi span {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .tv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .tv .screen {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            margin: auto;
+            opacity: 0;
+            transition: opacity .5s;
+        }
+        .tv .screen.active {
+            opacity: 1;
+        }
+    </style>
+    <script src="jquery-3.1.0.min.js"></script>
+
+</head>
+<!--<body background="shambala.png">-->
+<body>
+
+<div class="cover">
+    <!--<div class="hi">This is fully responsive & mobile friendly YouTube video background scaled with 16/9 aspect ratio. Actually bunch of videos - js loads 1 of 4 with different start/end times, then it loops. <span>Click here to unmute</span> - all the tracks are quite awesome. ;]<br><br>Used these bits of code for <a href="http://snowboard.is" target="_blank">SNOWBOARD.IS</a> website. Enjoy!</div>-->
+    <div class="hi">
+        Hi, I am Jevgenijus Andrijankinas - Zend Certified PHP developer with work experience on following titles: www.theiconic.com.au, www.jovago.com, www.zando.co.za, www.lendico.com, www.clickndress.com and many more.
+        <br/><br/>
+        <span>Click here to unmute</span>
+
+        <!--This is fully responsive & mobile friendly YouTube video background scaled with 16/9 aspect ratio. Actually bunch of videos - js loads 1 of 4 with different start/end times, then it loops. <span>Click here to unmute</span> - all the tracks are quite awesome. ;]<br><br>Used these bits of code for <a href="http://snowboard.is" target="_blank">SNOWBOARD.IS</a> website. Enjoy!-->
+    </div>
+</div>
+<div class="tv">
+    <div class="screen mute" id="tv"></div>
+</div>
+
+</body>
+<script type="text/javascript">
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/player_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var tv,
+            playerDefaults = {autoplay: 0, autohide: 1, modestbranding: 0, rel: 0, showinfo: 0, controls: 0, disablekb: 1, enablejsapi: 0, iv_load_policy: 3};
+    var vid = [
+                {'videoId': '4eA7Qu7Lz2g', 'startSeconds': 75, 'endSeconds': 690, 'suggestedQuality': 'hd720'},
+//                {'videoId': '9ge5PzHSS0Y', 'startSeconds': 465, 'endSeconds': 657, 'suggestedQuality': 'hd720'},
+//                {'videoId': 'OWsCt7B-KWs', 'startSeconds': 0, 'endSeconds': 240, 'suggestedQuality': 'hd720'},
+//                {'videoId': 'qMR-mPlyduE', 'startSeconds': 19, 'endSeconds': 241, 'suggestedQuality': 'hd720'}
+            ],
+            randomvid = Math.floor(Math.random() * (vid.length - 1 + 1));
+
+    function onYouTubePlayerAPIReady(){
+        tv = new YT.Player('tv', {events: {'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange}, playerVars: playerDefaults});
+    }
+
+    function onPlayerReady(){
+        tv.loadVideoById(vid[randomvid]);
+        tv.mute();
+    }
+
+    function onPlayerStateChange(e) {
+        if (e.data === 1){
+            $('#tv').addClass('active');
+        } else if (e.data === 0){
+            tv.seekTo(vid[randomvid].startSeconds)
+        }
+    }
+
+    function vidRescale(){
+
+        var w = $(window).width()+200,
+                h = $(window).height()+200;
+
+        if (w/h > 16/9){
+            tv.setSize(w, w/16*9);
+            $('.tv .screen').css({'left': '0px'});
+        } else {
+            tv.setSize(h/9*16, h);
+            $('.tv .screen').css({'left': -($('.tv .screen').outerWidth()-w)/2});
+        }
+    }
+
+    $(window).on('load resize', function(){
+        vidRescale();
+    });
+
+    $('.hi span').on('click', function(){
+        $('#tv').toggleClass('mute');
+        if($('#tv').hasClass('mute')){
+            tv.mute();
+        } else {
+            tv.unMute();
+        }
+    });
+</script>
+</html>
+
+
