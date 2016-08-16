@@ -29,7 +29,7 @@
             line-height: 26px;
             text-align: center;
         }
-        .cover .hi span {
+        .cover .hi span.unmute {
             cursor: pointer;
             text-decoration: underline;
         }
@@ -56,6 +56,18 @@
         .tv .screen.active {
             opacity: 1;
         }
+        .small {
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .medium {
+            font-size: 18px;
+            text-decoration: none;
+        }
+        .large {
+            font-size: 28px;
+            text-decoration: none;
+        }
     </style>
     <script src="jquery-3.1.0.min.js"></script>
 
@@ -64,13 +76,10 @@
 <body>
 
 <div class="cover">
-    <!--<div class="hi">This is fully responsive & mobile friendly YouTube video background scaled with 16/9 aspect ratio. Actually bunch of videos - js loads 1 of 4 with different start/end times, then it loops. <span>Click here to unmute</span> - all the tracks are quite awesome. ;]<br><br>Used these bits of code for <a href="http://snowboard.is" target="_blank">SNOWBOARD.IS</a> website. Enjoy!</div>-->
     <div class="hi">
-        Hi, I am Jevgenijus Andrijankinas - Zend Certified PHP developer with work experience on following titles: www.theiconic.com.au, www.jovago.com, www.zando.co.za, www.lendico.com, www.clickndress.com and many more.
+        Hi, I am Jevgenijus Andrijankinas - Zend Certified PHP developer with work experience on following titles: <br/> <br/> <span class="medium">www.clickndress.com</span>, <span class="large">www.theiconic.com.au</span>, <span class="small">www.adhapservices.fr</span>, www.jovago.com, <span class="medium">www.zando.co.za</span>, <span class="large">www.lendico.com</span>, <span class="small">www.e-enfants.com</span> and many more.
         <br/><br/>
-        <span>Click here to unmute</span>
-
-        <!--This is fully responsive & mobile friendly YouTube video background scaled with 16/9 aspect ratio. Actually bunch of videos - js loads 1 of 4 with different start/end times, then it loops. <span>Click here to unmute</span> - all the tracks are quite awesome. ;]<br><br>Used these bits of code for <a href="http://snowboard.is" target="_blank">SNOWBOARD.IS</a> website. Enjoy!-->
+        <span class="unmute">Click here to unmute</span>
     </div>
 </div>
 <div class="tv">
